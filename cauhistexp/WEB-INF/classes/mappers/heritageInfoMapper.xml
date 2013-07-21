@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lifenjoys.exp.pst.HeritageInfoMapper">
+
+	<sql id="heritageInfoSearchCondition">
+		FROM heritage_info
+		LEFT OUTER JOIN heritage_type_info
+		ON heritage_info.heritage_type = heritage_type_info.heritage_type_idx
+		WHERE heritage_info.use_yn = 'Y'
+		<if test="search_query != null and search_query != ''">
+			<if test="search_type == 'name'">
+				AND heritage_info.heritage_name like '%${search_query}%' 
+			</if>
+			<if test="search_type == 'type'">
+				AND heritage_type_info.heritage_type_name = #{search_query}
+			</if>
+		</if>
+		<if test="site_idx != null and site_idx != ''">
+			AND heritage_info.site_idx = #{site_idx}
+		</if>
+		
+	</sql>
+
+	<select id="getHeritageInfoList" parameterType="heritageInfo"
+		resultType="heritageInfo">
+		SELECT
+		site_idx
+		,heritage_idx
+		,heritage_name
+		,heritage_type
+		,heritage_type_name
+		,(select count(*) <include refid="heritageInfoSearchCondition"/> ) total_cnt
+		<include refid="heritageInfoSearchCondition"/>
+		ORDER by heritage_name asc
+		<if test="start_num != null">
+			<if test="rows_per_page != null">
+				LIMIT #{start_num},#{rows_per_page}
+			</if>
+		</if>
+	</select>
+
+	<insert id="insHeritageInfo" parameterType="heritageInfo" useGeneratedKeys="true" keyProperty="heritage_idx">
+		INSERT INTO lifenjoys.heritage_info
+		(site_idx, heritage_name)
+		VALUES
+		(#{site_idx}, #{heritage_name})
+	</insert>
+
+	<update id="updHeritageInfo" parameterType="heritageInfo">
+		UPDATE lifenjoys.heritage_info
+		<set>
+			<if test="site_idx != null">site_idx= #{site_idx},</if>
+			<if test="heritage_name != null">heritage_name =#{heritage_name,jdbcType=VARCHAR},</if>
+			<if test="heritage_type != null">heritage_type =#{heritage_type},</if>
+		</set>
+		WHERE heritage_idx = #{heritage_idx}
+	</update>
+
+	<delete id="delHeritageInfo" parameterType="Long">
+		UPDATE lifenjoys.heritage_info
+		<set>
+			use_yn='N'
+		</set>
+		WHERE heritage_idx = #{heritage_idx}
+	</delete>
+</mapper>

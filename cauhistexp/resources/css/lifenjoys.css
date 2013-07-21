@@ -1,0 +1,373 @@
+@CHARSET "UTF-8";
+
+.navi-on {
+	padding-top: 40px;
+	padding-bottom: 40px;
+}
+
+.hanja_input {
+	width: 99%;
+	height: 100px;
+	font-family: 한양해서, Dotum, Baekmuk Dotum, Undotum, Apple Gothic,
+		Latin font, sans-serif;
+	font-size: 14pt;
+	overflow: auto;
+}
+
+/*결과창에 나오는 한자*/
+span.hanja {
+	font-size: 25px;
+	line-height: 25px;
+}
+
+/*한자 뜻풀이*/
+ui.hanja_desc {
+	font-size: 15px;
+}
+
+/*한자 기본정보에 나오는 한자*/
+h1.hanja_info {
+	line-height: 20px;
+}
+
+/*한자 부수*/
+ui.hanja_radical {
+	font-size: 15px;
+}
+
+/*한자 단어*/
+h2.hanja_word_info {
+	line-height: 20px;
+}
+
+/*한자 단어 설명*/
+ui.hanja_word_desc {
+	font-size: 15px;
+}
+
+/*선택했을 때*/
+.selected {
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+/*출력부분설정*/
+div.text_area {
+	background-color: #FFFADD;
+	word-wrap: break-word;
+	padding: 5px;
+}
+
+/*배경색 설정*/
+div.word_info {
+	background-color: #FFDDE1;
+	padding: 5px;
+}
+
+div.hanja_info {
+	background-color: #DFF1FF;
+	padding: 5px;
+}
+
+/*폰트변경*/
+.container {
+	font-family: Dotum, Baekmuk Dotum, Undotum, Apple Gothic,
+		Latin font, sans-serif;
+}
+
+/*버튼위치 조정*/
+.dic_btn {
+	position: relative;
+	top: 10px;
+}
+
+.next_btn {
+	position: relative;
+	left: 10px;
+}
+
+/*버튼위치조정*/
+.btn_area {
+	text-align: right;
+	padding-bottom: 5px;
+}
+
+/*화살표 크기조정*/
+.arrow_btn {
+	height: 30px;
+}
+
+/*답사원고 본문조회용*/
+.kr06 { font:15px Tahoma, Geneva, sans-serif; line-height:180%; }
+
+/*이미지 뷰어*/
+.galleria{height:500px;}
+
+/*bootstrap수정*/
+
+
+
+input.span1a,
+textarea.span1a,
+.uneditable-input.span1a {
+  width: 96px;
+}
+
+input.span2a,
+textarea.span2a,
+.uneditable-input.span2a {
+  width: 136px;
+}
+
+select.spana{
+	width:106px;
+}
+
+select.spanb{
+	width:145px;
+}
+
+
+
+input.span3a,
+textarea.span3a,
+.uneditable-input.span3a {
+  width: 267px;
+}
+
+.ml10{
+	margin-left:10px;
+}
+
+.ml20{
+	margin-left:20px;
+}
+
+.ml25{
+	margin-left:25px;
+}
+
+.ml30{
+	margin-left:30px;
+}
+
+.mr5{
+	margin-right:5px;
+}
+
+.mr10{
+	margin-right:10px;
+}
+
+.mr20{
+	margin-right:20px;
+}
+
+.mr30{
+	margin-right:30px;
+}
+
+.mr50{
+	margin-right:50px;
+}
+
+.mt10{
+	margin-top:10px;
+}
+
+.mt20{
+	margin-top:20px;
+}
+
+.mt30{
+	margin-top:30px;
+}
+
+.mt100{
+	margin-top:100px;
+}
+
+.mb10{
+	margin-bottom:10px;
+}
+
+.mb20{
+	margin-bottom:20px;
+}
+
+.mb30{
+	margin-bottom:30px;
+}
+
+.pr15{
+	padding-right:15px;
+}
+
+.showy{
+	display:block;	
+}
+
+.shown{
+	display:none;	
+}
+
+.cursorp{
+	cursor:pointer;
+}
+
+.bold{
+	font-weight: bold;
+}
+
+/*가운데정렬*/
+.center {
+  margin: 0 auto;
+}
+
+/*너비 css*/
+.w100{
+	width:100px;
+}
+.w150{
+	width:150px;
+}
+.w200{
+	width:200px;
+}
+
+/*높이 css*/
+.h400{
+	height:400px;
+}
+
+.margin{
+	margin: 0 0 0px;
+}
+
+/*인포윈도우*/
+.map-infowindow{
+	margin: 10px 15px 10px 10px;
+}
+
+.infowindow-text{
+	font-size:11px;
+}
+
+.infowindow-title{
+	padding-bottom: 4px;
+	border-bottom: 1px solid #eeeeee;
+	margin: 0 0 3px 5px;
+}
+
+/*체크박스*/
+/* CSS Created by CSS CHECKBOX */
+/**********************************/
+/**** www.CSScheckbox.com *********/
+
+/*general styles for all CSS Checkboxes*/
+input[type=checkbox].css-checkbox {
+	display:none;
+}
+
+input[type=checkbox].css-checkbox + label.css-label {
+	padding-left:20px;
+	height:15px; 
+	display:inline-block;
+	line-height:15px;
+	background-repeat:no-repeat;
+	background-position: 0 0;
+	font-size:15px;
+	vertical-align:middle;
+	cursor:pointer;
+}
+
+input[type=checkbox].css-checkbox:checked + label.css-label {
+	background-position: 0 -15px;
+}
+
+.css-label{
+	background-image:url(http://csscheckbox.com/checkboxes/dark-check-green.png);
+}
+
+/*specific classes related to Checkbox skins*/
+
+.lite-green-check{background-image:url(http://csscheckbox.com/checkboxes/lite-green-check.png);}
+.lite-blue-check{background-image:url(http://csscheckbox.com/checkboxes/lite-blue-check.png);}
+.lite-gray-check{background-image:url(http://csscheckbox.com/checkboxes/lite-gray-check.png);}
+.lite-cyan-check{background-image:url(http://csscheckbox.com/checkboxes/lite-cyan-check.png);}
+.lite-orange-check{background-image:url(http://csscheckbox.com/checkboxes/lite-orange-check.png);}
+.lite-red-check{background-image:url(http://csscheckbox.com/checkboxes/lite-red-check.png);}
+
+.lite-x-cyan{background-image:url(http://csscheckbox.com/checkboxes/lite-x-cyan.png);}
+.lite-x-gray{background-image:url(http://csscheckbox.com/checkboxes/lite-x-gray.png);}
+.lite-x-blue{background-image:url(http://csscheckbox.com/checkboxes/lite-x-blue.png);}
+.lite-x-orange{background-image:url(http://csscheckbox.com/checkboxes/lite-x-orange.png);}
+.lite-x-red{background-image:url(http://csscheckbox.com/checkboxes/lite-x-red.png);}
+.lite-x-green{background-image:url(http://csscheckbox.com/checkboxes/lite-x-green.png);}
+
+.mac-style{background-image:url(http://csscheckbox.com/checkboxes/mac-style.png);}
+.mario-style{background-image:url(http://csscheckbox.com/checkboxes/mario-style.png);}
+.alert-style{background-image:url(http://csscheckbox.com/checkboxes/alert-style.png);}
+.lite-plus{background-image:url(http://csscheckbox.com/checkboxes/lite-plus.png);}
+.dark-plus{background-image:url(http://csscheckbox.com/checkboxes/dark-plus.png);}
+.dark-plus-cyan{background-image:url(http://csscheckbox.com/checkboxes/dark-plus-cyan.png);}
+.dark-plus-orange{background-image:url(http://csscheckbox.com/checkboxes/dark-plus-orange.png);}
+.dark-check-cyan{background-image:url(http://csscheckbox.com/checkboxes/dark-check-cyan.png);}
+.dark-check-green{background-image:url(http://csscheckbox.com/checkboxes/dark-check-green.png);}
+.dark-check-orange{background-image:url(http://csscheckbox.com/checkboxes/dark-check-orange.png);}
+
+
+.depressed-lite-small{background-image:url(http://csscheckbox.com/checkboxes/depressed-lite-small.png);}
+.elegant{background-image:url(http://csscheckbox.com/checkboxes/elegant.png);}
+.depressed{background-image:url(http://csscheckbox.com/checkboxes/depressed.png);}
+.chrome-style{background-image:url(http://csscheckbox.com/checkboxes/chrome-style.png);}
+.web-two-style{background-image:url(http://csscheckbox.com/checkboxes/web-two-style.png);}
+
+input[type=checkbox].css-checkbox.med + label.css-label.med {
+	padding-left:22px;
+    height:17px; 
+	display:inline-block;
+	line-height:17px;
+	background-repeat:no-repeat;
+	background-position: 0 0;
+	font-size:15px;
+	vertical-align:middle;
+    cursor:pointer;
+}
+
+input[type=checkbox].css-checkbox.med:checked + label.css-label.med {
+
+    background-position: 0 -17px;
+}
+input[type=checkbox].css-checkbox.sme + label.css-label.sme {
+	padding-left:22px;
+    height:16px; 
+	display:inline-block;
+	line-height:16px;
+	background-repeat:no-repeat;
+	background-position: 0 0;
+	font-size:15px;
+	vertical-align:middle;
+    cursor:pointer;
+}
+
+input[type=checkbox].css-checkbox.sme:checked + label.css-label.sme{
+
+    background-position: 0 -16px;
+}
+input[type=checkbox].css-checkbox.lrg + label.css-label.lrg {
+	padding-left:22px;
+    height:20px; 
+	display:inline-block;
+	line-height:20px;
+	background-repeat:no-repeat;
+	background-position: 0 0;
+	font-size:15px;
+	vertical-align:middle;
+    cursor:pointer;
+}
+
+input[type=checkbox].css-checkbox.lrg:checked + label.css-label.lrg{
+
+    background-position: 0 -20px;
+}

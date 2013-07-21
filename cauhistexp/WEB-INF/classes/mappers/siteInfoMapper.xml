@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lifenjoys.exp.pst.SiteInfoMapper">
+
+	<sql id="siteInfoSearchCondition">
+		FROM site_info
+		LEFT OUTER JOIN site_type_info
+		ON site_info.site_type = site_type_info.site_type_idx
+		WHERE site_info.use_yn = 'Y'
+		<if test="search_query != null and search_query != ''">
+			<if test="search_type == 'name'">
+				AND site_info.site_name like '%${search_query}%' 
+			</if>
+			<if test="search_type == 'type'">
+				AND site_type_info.site_type_name = #{search_query}
+			</if>
+			<if test="search_type == 'region'">
+				AND site_info.region = #{search_query}
+			</if>
+		</if>
+		
+	</sql>
+
+	<select id="getSiteInfoList" parameterType="siteInfo"
+		resultType="siteInfo">
+		SELECT
+		site_idx
+		,site_type
+		,site_type_name
+		,site_name
+		,addr
+		,latitude
+		,longitude
+		,region
+		,city
+		,area23
+		,(select count(*) <include refid="siteInfoSearchCondition"/> ) total_cnt
+		<include refid="siteInfoSearchCondition"/>
+		ORDER by site_name asc
+		<if test="start_num != null">
+			<if test="rows_per_page != null">
+				LIMIT #{start_num},#{rows_per_page}
+			</if>
+		</if>
+	</select>
+
+	<insert id="insSiteInfo" parameterType="siteInfo" useGeneratedKeys="true" keyProperty="site_idx">
+		INSERT INTO lifenjoys.site_info
+		(site_type, site_name, addr, latitude,
+		longitude, region, city, area23)
+		VALUES
+		(#{site_type}, #{site_name}, #{addr}, #{latitude}, #{longitude}, #{region},
+		#{city},
+		#{area23})
+	</insert>
+
+	<update id="updSiteInfo" parameterType="siteInfo">
+		UPDATE lifenjoys.site_info
+		<set>
+			<if test="site_type != null">site_type= #{site_type},</if>
+			<if test="site_name != null">site_name =#{site_name,jdbcType=VARCHAR},</if>
+
+			<if test="addr != null">addr = #{addr},</if>
+			<if test="latitude != null">latitude = #{latitude},</if>
+			<if test="longitude != null">longitude = #{longitude},</if>
+			<if test="region != null">region = #{region},</if>
+			<if test="city != null">city = #{city},</if>
+			<if test="area23 != null">area23 = #{area23},</if>
+		</set>
+		WHERE site_idx = #{site_idx}
+	</update>
+
+	<delete id="delSiteInfo" parameterType="Long">
+		UPDATE lifenjoys.site_info
+		<set>
+			use_yn='N'
+		</set>
+		WHERE site_idx = #{site_idx}
+	</delete>
+	
+	<!-- 답사-코스 매핑부분 -->
+	<insert id="insExpSiteMapping" parameterType="siteInfo" useGeneratedKeys="true" keyProperty="site_idx">
+		INSERT INTO exp_site_info (exp_idx, site_idx, seq) 
+		VALUES (#{exp_idx}, #{site_idx}, #{seq}) 
+	</insert>
+	
+	<delete id="delExpSiteMapping" parameterType="Long">
+		DELETE FROM exp_site_info
+		WHERE exp_idx= #{exp_idx}
+	</delete>
+</mapper>

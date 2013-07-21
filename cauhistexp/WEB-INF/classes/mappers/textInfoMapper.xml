@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lifenjoys.exp.pst.TextInfoMapper">
+
+	<sql id="textInfoSearchCondition">
+		FROM text_info LEFT OUTER JOIN text_type_info
+		ON text_info.text_type = text_type_info.text_type_idx
+		WHERE text_info.use_yn = 'Y'
+		<if test="search_query != null and search_query != ''">
+			<if test="search_type == 'name'">
+				AND text_info.text_name like '%${search_query}%' 
+			</if>
+			<if test="search_type == 'type'">
+				AND text_type_info.text_type_name = #{search_query} 
+			</if>
+			<if test="search_type == 'content'">
+				AND text_info.text_content like '%${search_query}%' 
+			</if>
+			<if test="search_type == 'author'">
+				AND text_info.author like '%${search_query}%' 
+			</if>
+			<if test="search_type == 'source'">
+				AND text_info.source like '%${search_query}%' 
+			</if>
+		</if>
+		
+	</sql>
+
+	<select id="getTextInfoList" parameterType="textInfo"
+		resultType="textInfo">
+		SELECT
+		heritage_idx
+		,text_idx
+		,text_name
+		,text_type
+		,text_type_name
+		,text_content
+		,author
+		,source
+		,(select count(*) <include refid="textInfoSearchCondition"/> ) total_cnt
+		<include refid="textInfoSearchCondition"/>
+		ORDER by text_name asc
+		<if test="start_num != null">
+			<if test="rows_per_page != null">
+				LIMIT #{start_num},#{rows_per_page}
+			</if>
+		</if>
+	</select>
+
+	<insert id="insTextInfo" parameterType="textInfo" useGeneratedKeys="true" keyProperty="text_idx">
+		INSERT INTO lifenjoys.text_info
+		(heritage_idx, text_type, text_name, text_content, author, source)
+		VALUES
+		(#{heritage_idx}, #{text_type}, #{text_name}, #{text_content}, #{author}, #{source})
+	</insert>
+
+	<update id="updTextInfo" parameterType="textInfo">
+		UPDATE lifenjoys.text_info
+		<set>
+			<if test="heritage_idx != null">heritage_idx= #{heritage_idx},</if>
+			<if test="text_type != null">text_type= #{text_type},</if>
+			<if test="text_name != null">text_name =#{text_name,jdbcType=VARCHAR},</if>
+
+			<if test="text_content != null">text_content = #{text_content},</if>
+			<if test="author != null">author = #{author},</if>
+			<if test="source != null">source = #{source},</if>
+		</set>
+		WHERE text_idx = #{text_idx}
+	</update>
+
+	<delete id="delTextInfo" parameterType="Long">
+		UPDATE lifenjoys.text_info
+		<set>
+			use_yn='N'
+		</set>
+		WHERE text_idx = #{text_idx}
+	</delete>
+</mapper>

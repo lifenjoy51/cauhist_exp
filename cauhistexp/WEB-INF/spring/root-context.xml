@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<context:component-scan base-package="com.lifenjoys.exp"
+		annotation-config="true" />
+
+	<!-- MyBatis 관련 설정 -->
+
+	<!-- XStream jsonMarshaller -->
+	<bean id="jsonMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller">
+		<property name="streamDriver" ref="jsonStreamDriver" />
+		<property name="autodetectAnnotations" value="true" />
+	</bean>
+	<bean id="jsonStreamDriver"
+		class="com.thoughtworks.xstream.io.json.JsonHierarchicalStreamDriver" />
+	<!-- jsonView -->
+	<bean id="jsonView" name="jsonView"
+		class="org.springframework.web.servlet.view.xml.MarshallingView">
+		<property name="marshaller" ref="jsonMarshaller" /> <!-- 마샬러 지정 -->
+		<property name="contentType" value="application/json;charset=UTF-8" />
+		<property name="modelKey" value="jsonData" />
+	</bean>
+	<bean id="beanNameResolver"
+		class="org.springframework.web.servlet.view.BeanNameViewResolver" />
+
+	<!-- Logging AOP -->
+	<aop:aspectj-autoproxy>
+		<aop:include name="expLogger" />
+	</aop:aspectj-autoproxy>
+
+	<bean id="expLogger" class="com.lifenjoys.exp.util.ExpLogger" />
+
+</beans>

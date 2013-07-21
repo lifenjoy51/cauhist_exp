@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lifenjoys.exp.pst.ExpInfoMapper">
+	<select id="getExpInfoList" parameterType="expInfo" resultType="expInfo">
+		SELECT
+			  exp_idx
+			  ,exp_type
+			  ,exp_type_name
+			  ,exp_name
+			  ,CONCAT(start_year, '-', lpad(start_month,2,0), '-', lpad(start_day,2,0)) start_date
+			  ,CONCAT(end_year, '-', lpad(end_month,2,0), '-', lpad(end_day,2,0)) end_date
+			  ,exp_memo
+			  ,(select count(*) from exp_info where use_yn='Y') total_cnt
+		FROM exp_info LEFT OUTER JOIN exp_type_info
+	    ON exp_info.exp_type = exp_type_info.exp_type_idx
+	    WHERE exp_info.use_yn = 'Y'
+		ORDER by start_year, start_month ,start_day desc
+		LIMIT #{start_num},#{rows_per_page}
+	</select>	
+	
+	<insert id="insExpInfo" parameterType="expInfo">
+	INSERT INTO lifenjoys.exp_info
+		(exp_type, exp_name, start_year, start_month, start_day, end_year, end_month,
+		end_day, exp_memo)
+	VALUES 
+		(#{exp_type}, #{exp_name}, #{start_year}, #{start_month}, #{start_day}, #{end_year},
+		#{end_month}, #{end_day}, #{exp_memo});
+	</insert>
+
+	<update id="updExpInfo" parameterType="expInfo">
+		UPDATE lifenjoys.exp_info 
+		<set>
+			<if test="exp_type != null">exp_type= #{exp_type},</if>
+			<if test="exp_name != null">exp_name =#{exp_name,jdbcType=VARCHAR},</if>
+			<if test="start_year != null">start_year = #{start_year},</if>
+			<if test="start_month != null">start_month = #{start_month},</if>
+			<if test="start_day != null">start_day = #{start_day},</if>
+			<if test="end_year != null">end_year = #{end_year},</if>
+			<if test="end_month != null">end_month = #{end_month},</if>
+			<if test="end_day != null">end_day = #{end_day},</if>
+			<if test="exp_memo != null">exp_memo = #{exp_memo},</if>
+		</set>
+		WHERE exp_idx = #{exp_idx}
+	</update>
+
+	<delete id="delExpInfo" parameterType="Long">
+		UPDATE lifenjoys.exp_info 
+		<set>
+			use_yn='N'
+		</set>
+		WHERE exp_idx = #{exp_idx}
+	</delete>
+</mapper>
